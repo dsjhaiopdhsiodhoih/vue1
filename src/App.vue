@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <h1>任务栏</h1>
+  <div id="app" class="app-background">
+    <h1>Todolist</h1>
     <todoInput @addTask="addTask"></todoInput>
-    <todoList :todolist="todoList"></todoList>
     <todoButton @changeActive="changeActive"></todoButton> 
+    <todoList :todolist="filteredTodoList" @deleteTask="deleteTask" class="glowing-background"></todoList>
   </div>
 </template>
 
@@ -11,45 +11,45 @@
 import todoList from "./components/todoList.vue";
 import todoButton from "./components/todoButton.vue";
 import todoInput from "./components/todoInput.vue";
+
 export default {
-  name:"App",
-  data(){
+  name: "App",
+  data() {
     return {
-      todoList:[
-      {id:1,task:'吃饭',isCompleted:true},
-      {id:2,task:'睡觉',isCompleted:false},
-      {id:3,task:'打豆豆',isCompleted:false},
+      todoList: [
+        { id: 1, task: '做作业', isCompleted: true },
+        { id: 2, task: '出去玩乐', isCompleted: false },
       ],
-      active:0,
+      active: 0,
     };
   },
-
-  computed:{
-    todoList(){
-      if(this.active === 0){
+  computed: {
+    filteredTodoList() {
+      if (this.active === 0) {
         return this.todoList;
-      }else if(this.active === 1){
+      } else if (this.active === 1) {
         return this.todoList.filter(item => item.isCompleted);  
-      }else{
+      } else {
         return this.todoList.filter(item => !item.isCompleted);
       }
     },
   },
-  methods:{
-    changeActive(active){
-         this.active = active;
-         console.log(this.active);
+  methods: {
+    changeActive(active) {
+      this.active = active;
     },
-    addTask(taskname){
+    addTask(taskname) {
       this.todoList.push({
-        id:this.todoList.length + 1,
-        task:taskname,
+        id: this.todoList.length + 1,
+        task: taskname,
         isCompleted: false
       });
     },
+    deleteTask(taskId) {
+      this.todoList = this.todoList.filter(task => task.id !== taskId);
+    },
   },
-    
-  components:{
+  components: {
     todoList,
     todoButton,
     todoInput,
@@ -58,4 +58,20 @@ export default {
 </script>
 
 <style>
+.app-background {
+  background-color: #bffefc;
+}
+
+.glowing-background {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+  to {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
 </style>

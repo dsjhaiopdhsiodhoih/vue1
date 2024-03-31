@@ -1,56 +1,65 @@
 <template>
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button
-         type="button"
-         class="btn" 
-         :class="active === 0? 'btn-primary' : 'btn-secondary'"
-         @click="changeActive(0)"
-         >
-            全部
-        </button>
-
-        <button
-         type="button"
-         class="btn" 
-         :class="active === 1? 'btn-primary' : 'btn-secondary'"
-         @click="changeActive(1)"
-         >
-            已完成
-        </button>
-
-        <button
-         type="button"
-         class="btn" 
-         :class="active === 2? 'btn-primary' : 'btn-secondary'"
-         @click="changeActive(2)"
-         >
-            未完成
-        </button>
-
+    <div class="container">
+      <div class="input-container">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="请输入任务" 
+          aria-label="New Task" 
+          v-model="taskname"
+        />
+        <button class="btn btn-primary" @click="onAdd">添加任务</button>
+      </div>
     </div>
-</template>
-
-<script>
-export default{
-    name:"todoButton",
+  </template>
+  
+    
+  <script>
+  export default {
     data() {
-        return{
-            active:0,
-        };
+      return {
+        taskname: ""
+      };
     },
-    emits:["changeActive"],
-    methods:{
-        changeActive(index) {
-            this.active = index;
-            this.$emit("changeActive",index);
-        },
-    },
-};
-</script>
-
-<style scoped>
-.btn-group {
-    width: 500px;
-    margin: 10px auto;
-}
-</style>
+    emits: ["addTask"],
+    methods: {
+      onAdd() {
+        if (this.taskname.trim() !== "") {
+          this.$emit("addTask", this.taskname);
+          this.taskname = "";
+        }
+      }
+    }
+  };
+  </script>
+  
+    
+    <style scoped>
+    .container {
+      width: 500px;
+      margin: 20px auto;
+    }
+    
+    h2 {
+      color: #333;
+    }
+    
+    
+    .input-container input {
+      flex: 1;
+      margin-right: 10px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    </style>
+    

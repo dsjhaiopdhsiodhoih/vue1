@@ -1,50 +1,102 @@
 <template>
-    <ul class="list-group">
-      <li 
-        class="list-group-item d-flex justify-content-between align-items-center"
-          v-for="item in todolist" :key="item.id"  
-      >
-        
-      <div class="form-check">
-          <input 
-            class="form-check-input" 
-            type="checkbox" 
-            value="" 
-            :id="item.id"
-            v-model="item.isCompleted"
-          />
-          <label 
-            class="form-check-label" 
-            :for="item.id" 
-            :class="item.isCompleted ? 'delete' : ''">
-            {{item.task}}
-          </label>
-        </div>
-        <span class="badge badge-primary badge-pill" v-if="item.isCompleted">已完成</span>
-        <span class="badge badge-warning badge-pill" v-else>未完成</span>
+  <ul class="todo-list">
+    <li v-for="item in todolist" :key="item.id" class="todo-item">
+      <div class="todo-content">
+        <input
+          v-if="!item.isCompleted"
+          type="checkbox"
+          class="todo-checkbox"
+          :id="'todo-' + item.id"
+          v-model="item.isCompleted"
+          @change="updateCompletion(item.id, item.isCompleted)"
+        />
+        <input
+          v-else
+          type="checkbox"
+          class="todo-checkbox"
+          :id="'todo-' + item.id"
+          v-model="item.isCompleted"
+          @change="updateCompletion(item.id, item.isCompleted)"
+          disabled
+        />
+        <label :for="'todo-' + item.id" class="todo-label" :class="{ 'completed': item.isCompleted }">{{ item.task }}</label>
+      </div>
+      <span v-if="!item.isCompleted" class="delete-btn" @click="deleteItem(item.id)">
+        删除
+      </span>
     </li>
-</ul>
-  </template>
-  
-  <script>
-  export default {
-    name :"todoList",
-    props:{
-      todolist:{
-        required:true,
-        default:[]
-      }
+  </ul>
+</template>
+
+<script>
+export default {
+  name: "TodoList",
+  props: {
+    todolist: {
+      type: Array,
+      required: true,
+      default: () => []
     }
-  };   
-  </script>
-  
-  <style scoped>
-  .list-group{
-    width: 500px;
-    margin: 0 auto;
+  },
+  methods: {
+    deleteItem(id) {
+
+    },
+    updateCompletion(id, isCompleted) {
+
+    }
   }
-  
-    .delete{
-      text-decoration: line-through;
-    }
-  </style>
+};
+</script>
+
+<style scoped>
+.todo-list {
+  list-style-type: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo-content {
+  display: flex;
+  align-items: center;
+}
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-label {
+  cursor: pointer;
+}
+
+.delete-btn {
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.badge-completed {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.badge-incomplete {
+  background-color: #dc3545;
+  color: #fff;
+}
+</style>
