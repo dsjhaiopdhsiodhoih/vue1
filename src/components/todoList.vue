@@ -40,7 +40,11 @@ export default {
   },
   methods: {
     deleteItem(id) {
-
+      const index = this.todolist.findIndex(item => item.id === id);
+      if (index !== -1) {
+        // Remove the item from the todolist array
+        this.todolist.splice(index, 1);
+      }
     },
     updateCompletion(id, isCompleted) {
 

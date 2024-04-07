@@ -54,9 +54,12 @@ methods: {
 .btn-group {
 width: 500px;
 margin: 10px auto;
+justify-content: center;
+justify-items: center;
 }
 
 .custom-btn {
+  margin-left: 20px;
 transition: background-color 0.3s ease;
 }
 

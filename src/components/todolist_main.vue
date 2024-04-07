@@ -1,7 +1,10 @@
 <template>
+  <div class="back">
     <todoInput @addTask="addTask"></todoInput>
     <todoButton @changeActive="changeActive"></todoButton> 
     <todoList :todolist="filteredTodoList" @deleteTask="deleteTask" class="glowing-background"></todoList>
+  </div>
+    
   </template>
   
   <script>
@@ -56,6 +59,14 @@ export default {
 </script>
   
 <style>
+.back{
+  padding-top: 50px;
+  width: 100%;
+  height: 800px;
+  background: url("./11.jpg");
+  background-size:cover;
+}
+
 .app-background {
   background-color: #bffefc;
 }
@@ -66,10 +77,11 @@ export default {
 
 @keyframes glow {
   from {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.5);
   }
   to {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.5);
+    /* background-color: rgba(255, 255, 255, 0.9); */
   }
 }
 </style>
