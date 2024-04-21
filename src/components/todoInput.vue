@@ -8,7 +8,7 @@
           aria-label="New Task" 
           v-model="taskname"
         />
-        <button class="btn btn-primary" @click="onAdd">添加任务</button>
+        <button class="btn btn-primary" id="addbtn_project" @click="onAdd">添加任务</button>
       </div>
     </div>
   </template>

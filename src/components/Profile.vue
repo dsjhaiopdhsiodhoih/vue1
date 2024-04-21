@@ -19,9 +19,38 @@ export default {
 <style scoped>
 .profile {
   text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  margin: 50px auto 0;
+  background-color: #fff;
+}
+
+.profile h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #000;
 }
 
 .info {
   margin-top: 20px;
+}
+
+.info p {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.info p:last-child {
+  border-bottom: none;
+}
+
+.info p strong {
+  color: #000;
+}
+
+.info p:not(:last-child) {
+  margin-bottom: 10px;
 }
 </style>

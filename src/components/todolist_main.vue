@@ -1,5 +1,6 @@
 <template>
   <div class="back">
+    <Login v-if="!authStore.isAuthenticated" />
     <todoInput @addTask="addTask"></todoInput>
     <todoButton @changeActive="changeActive"></todoButton> 
     <todoList :todolist="filteredTodoList" @deleteTask="deleteTask" class="glowing-background"></todoList>
@@ -12,17 +13,24 @@
 import todoList from "./todoList.vue";
 import todoButton from "./todoButton.vue";
 import todoInput from "./todoInput.vue";
+import Login from "./login.vue";
+import { useAuthStore } from '../store'; 
 
 export default {
   name: "App",
+  setup() {
+    const authStore = useAuthStore(); 
+    return {
+      authStore, 
+    };
+  },
   data() {
     return {
       todoList: [
-        { id: 1, task: '做作业', isCompleted: true },
-        { id: 2, task: '出去玩乐', isCompleted: false },
       ],
       active: 0,
     };
+    
   },
   computed: {
     filteredTodoList() {
@@ -81,8 +89,9 @@ export default {
   }
   to {
     background-color: rgba(255, 255, 255, 0.5);
-    /* background-color: rgba(255, 255, 255, 0.9); */
+     background-color: rgba(255, 255, 255, 0.9); 
   }
 }
 </style>
+  
   
