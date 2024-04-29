@@ -3,6 +3,8 @@ import Home from '../components/Home.vue'
 import TodoList from '../components/todolist_main.vue'
 import Profile from '../components/Profile.vue'
 import login from '../components/login.vue'
+import achievement from'../components/achievement.vue'
+import Course from'../components/Course.vue'
 import { useAuthStore } from '../store';
 
 // const routes = [
@@ -51,6 +53,16 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/achievement',
+      name: 'achievement',
+      component: achievement
+    },
+    {
+      path: '/Course',
+      name: 'Course',
+      component: Course
     },
   ],
 })

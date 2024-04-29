@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <h2>登录</h2>
+    <h2>登录 账户22002306密码123456</h2>
     <form @submit.prevent="login" class="login">
       <div class="group">
         <label for="User">用户:</label>

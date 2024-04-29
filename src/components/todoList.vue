@@ -2,24 +2,24 @@
   <ul class="todo-list">
     <li v-for="item in todolist" :key="item.id" class="todo-item">
       <div class="todo-content">
-        <input
-          v-if="!item.isCompleted"
-          type="checkbox"
-          class="todo-checkbox"
-          :id="'todo-' + item.id"
+        <van-checkbox
+          v-if="isMobile"
           v-model="item.isCompleted"
+          :label="item.id"
+          :disabled="item.isCompleted"
           @change="updateCompletion(item.id, item.isCompleted)"
-        />
-        <input
+        >
+          {{ item.task }}
+        </van-checkbox>
+        <el-checkbox
           v-else
-          type="checkbox"
-          class="todo-checkbox"
-          :id="'todo-' + item.id"
           v-model="item.isCompleted"
+          :label="item.id"
+          :disabled="item.isCompleted"
           @change="updateCompletion(item.id, item.isCompleted)"
-          disabled
-        />
-        <label :for="'todo-' + item.id" class="todo-label" :class="{ 'completed': item.isCompleted }">{{ item.task }}</label>
+        >
+          {{ item.task }}
+        </el-checkbox>
       </div>
       <span v-if="!item.isCompleted" class="delete-btn" @click="deleteItem(item.id)">
         删除
@@ -38,6 +38,11 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      isMobile: false
+    };
+  },
   methods: {
     deleteItem(id) {
       const index = this.todolist.findIndex(item => item.id === id);
@@ -47,8 +52,12 @@ export default {
       }
     },
     updateCompletion(id, isCompleted) {
-
+      // Implement your method here
     }
+  },
+  mounted() {
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    this.isMobile = mobileRegex.test(navigator.userAgent);
   }
 };
 </script>
@@ -73,34 +82,11 @@ export default {
   align-items: center;
 }
 
-.todo-checkbox {
-  margin-right: 10px;
-}
-
-.todo-label {
-  cursor: pointer;
-}
-
 .delete-btn {
   cursor: pointer;
 }
 
 .completed {
   text-decoration: line-through;
-}
-
-.badge {
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-
-.badge-completed {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.badge-incomplete {
-  background-color: #dc3545;
-  color: #fff;
 }
 </style>
